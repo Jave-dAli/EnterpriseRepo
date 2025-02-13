@@ -5,15 +5,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebFilter("/addAlien")
-public class idFilter implements Filter {
+public class nameFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         PrintWriter out = servletResponse.getWriter();
-        System.out.println("In doFilter");
-        int aid = Integer.parseInt(servletRequest.getParameter("aid"));
-        if(aid > 1)
-            filterChain.doFilter(servletRequest, servletResponse);
+        System.out.println("In nameFilter");
+        String aname = servletRequest.getParameter("aname");
+        if (aname.isEmpty())
+            out.println("Name field can not be empty");
+        else if (aname.length() < 3)
+            out.println("Input length too small");
+        else if (aname.length() > 30)
+            out.println("Input length too long");
         else
-            out.print("Invalid ID");
+            filterChain.doFilter(servletRequest, servletResponse);
+
     }
 }
