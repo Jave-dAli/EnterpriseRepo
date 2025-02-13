@@ -10,7 +10,7 @@ import java.io.IOException;
 @WebServlet("/login")
 public class login extends HttpServlet {
      @Override
-     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
           String username = req.getParameter("username");
           String password = req.getParameter("password");
 
@@ -20,7 +20,7 @@ public class login extends HttpServlet {
                return;
           }
 
-          if(username.equals("admin") && password.equals("admin")) {
+          if(username.equals("javed") && password.equals("admin")) {
                HttpSession session = req.getSession();
                session.setAttribute("username", username);
                session.setAttribute("password", password);
