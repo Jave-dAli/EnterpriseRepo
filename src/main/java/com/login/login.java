@@ -1,3 +1,6 @@
+package com.login;
+
+import com.login.dao.LoginDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,13 +17,9 @@ public class login extends HttpServlet {
           String username = req.getParameter("username");
           String password = req.getParameter("password");
 
-          // Prevent NullPointerException
-          if (username == null || password == null) {
-               resp.sendRedirect("login.jsp");
-               return;
-          }
+          LoginDao dao = new LoginDao();
 
-          if(username.equals("javed") && password.equals("admin")) {
+          if(dao.check(username,password)) {
                HttpSession session = req.getSession();
                session.setAttribute("username", username);
                session.setAttribute("password", password);
